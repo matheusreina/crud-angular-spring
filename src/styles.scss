@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$spring-green-palette,
+    ),
+  )
+);
+
+@include mat.core();
+@include mat.color-variants-backwards-compatibility($theme);
+
+@mixin theme($theme) {
+  mat-toolbar {
+    background: mat.get-theme-color($theme, primary, 40);
+    color: white;
+  }
+}
+
+:root {
+  @include mat.all-component-themes($theme);
+  @include theme($theme);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
